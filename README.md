@@ -1,5 +1,5 @@
 # Execute Notebook with Docker
-Build Docker image to execute notebook (notebook_execution.py)
+Build Docker image to execute python script
 
 <b>Test running the container locally</b>
 1. Build with ```docker build -t image_name```
