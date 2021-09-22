@@ -16,7 +16,7 @@ import datetime
 import time
 import pytz
 
-SERVICE_ACCOUNT_FILE = 'service_account/adroit-hall-301111-d83ccae0ab62.json'
+SERVICE_ACCOUNT_FILE = 'service_account/xxxxx.json'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = SERVICE_ACCOUNT_FILE
 
 """Define parameters"""
