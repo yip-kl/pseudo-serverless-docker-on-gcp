@@ -12,3 +12,4 @@ Build Docker image to execute Notebook on-demand
 Note: Remember to perform these actions too
 - Remove the service account anthentication from the script, and set the right identity for the VM 
 - Make container's Restart Policy "On Failure" instead of "Always", otherwise the container could be up for less than 10 seconds for commands with short execution time and thus keep starting, see <a href="https://docs.docker.com/config/containers/start-containers-automatically/">here</a>
+- If you are going to deploy it as Cloud Function, include items listed in the requirements.txt
