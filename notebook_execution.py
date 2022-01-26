@@ -25,8 +25,10 @@ today = datetime.datetime.now(pytz.timezone('Asia/Hong_Kong')).strftime('%Y%m%d'
 timestamp = round(time.time())
 
 job_name = 'test_papermill'
-input_path = 'gs://papermill_test/input/test_fail.ipynb'
-output_path = 'gs://papermill_test/output/test_fail-{}-{}.ipynb'.format(today,timestamp)
+notebook_name = 'ga_transformation'
+bucket_path = 'bucket_name'
+input_path = 'gs://{}/input/{}.ipynb'.format(bucket_path,notebook_name)
+output_path = 'gs://{}/output/{}-{}-{}.ipynb'.format(bucket_path,notebook_name,today,timestamp)
 
 """Instantiates a logging client"""
 
