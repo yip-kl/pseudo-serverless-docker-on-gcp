@@ -16,8 +16,9 @@ import datetime
 import time
 import pytz
 
-SERVICE_ACCOUNT_FILE = 'service_account/xxxxx.json'
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = SERVICE_ACCOUNT_FILE
+# For local testing only
+#SERVICE_ACCOUNT_FILE = 'service_account/xxxxx.json'
+#os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = SERVICE_ACCOUNT_FILE
 
 """Define parameters"""
 
@@ -27,6 +28,7 @@ timestamp = round(time.time())
 job_name = 'test_papermill'
 notebook_name = 'ga_transformation'
 bucket_path = 'bucket_name'
+kernel_name = 'python3'
 input_path = 'gs://{}/input/{}.ipynb'.format(bucket_path,notebook_name)
 output_path = 'gs://{}/output/{}-{}-{}.ipynb'.format(bucket_path,notebook_name,today,timestamp)
 
@@ -46,7 +48,7 @@ logger = logging_client.logger(job_name)
 """Execute the notebook"""
 
 try:
-  pm.execute_notebook(input_path,output_path)
+  pm.execute_notebook(input_path,output_path,kernel_name=kernel_name)
   logger.log_struct(
     {"job_name": job_name, "execution_status": "success", "message":""},
     severity='INFO')
