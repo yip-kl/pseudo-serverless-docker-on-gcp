@@ -1,13 +1,13 @@
 import papermill as pm
 from google.cloud import logging
-import datetime 
-import time
-import pytz
+import requests
+import arrow
 
 """Define parameters"""
 
-today = datetime.datetime.now(pytz.timezone('Asia/Hong_Kong')).strftime('%Y%m%d')
-timestamp = round(time.time())
+local_time = arrow.utcnow().to('+08:00')
+today = local_time.format('YYYYMMDD')
+timestamp = round(local_time.timestamp())
 
 job_name = 'test_papermill'
 notebook_name = 'current_time'
@@ -33,11 +33,19 @@ logger = logging_client.logger(job_name)
 """Execute the notebook"""
 
 try:
+    metadata_server = "http://metadata/computeMetadata/v1/instance/"
+    metadata_flavor = {'Metadata-Flavor' : 'Google'}
+    gce_hostname = requests.get(metadata_server + 'hostname', headers = metadata_flavor).text
+except Exception as e:
+    print(str(e))
+    gce_hostname = ''
+
+try:
   pm.execute_notebook(input_path,output_path,kernel_name=kernel_name)
   logger.log_struct(
-    {"job_name": job_name, "execution_status": "success", "message":""},
+    {"job_name": job_name, "execution_status": "success", "instance_hostname": gce_hostname, "message":""},
     severity='INFO')
 except Exception as e:
   logger.log_struct(
-    {"job_name": job_name, "execution_status": "failure", "message":str(e)},
+    {"job_name": job_name, "execution_status": "failure", "instance_hostname": gce_hostname, "message":str(e)},
     severity='ERROR')
