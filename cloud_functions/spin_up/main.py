@@ -86,7 +86,7 @@ config = {
   "zone": f"projects/{project_id}/zones/{zone}"
 }
 
-def create_instance():
+def create_instance(event, context):
     compute = googleapiclient.discovery.build('compute', 'v1')
     compute.instances().insert(
         project=project_id,
