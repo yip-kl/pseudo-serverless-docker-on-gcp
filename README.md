@@ -1,4 +1,4 @@
-# Run Docker in a pseudo-serverless manner
+# Run Docker in a pseudo-serverless manner with GCE
 Spin up / tear down GCE automatically for Docker run. This could be useful if you find Cloud Run too restrictive (e.g. run time / spec limitation, forced to create a HTTP endpoint, etc.)
 
 <b>Test running the container locally</b>
