@@ -1,5 +1,6 @@
 import googleapiclient.discovery
 import requests
+import random
 
 # Get current project id
 metadata_server = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
@@ -11,6 +12,8 @@ instance_name = f'instance-{random.randint(0, 10000000000)}'
 region = "us-central1"
 zone = "us-central1-a"
 image_path = "gcr.io/adroit-hall-301111/exec_notebook"
+instance_type = 'e2-medium'
+service_account = '712368347106-compute@developer.gserviceaccount.com'
 config = {
   "canIpForward": False,
   "confidentialInstanceConfig": {
@@ -40,7 +43,7 @@ config = {
   "labels": {
     "container-vm": "cos-stable-97-16919-29-9"
   },
-  "machineType": f"projects/{project_id}/zones/{zone}/machineTypes/e2-medium",
+  "machineType": f"projects/{project_id}/zones/{zone}/machineTypes/{instance_type}",
   "metadata": {
     "items": [
       {
@@ -71,7 +74,7 @@ config = {
   },
   "serviceAccounts": [
     {
-      "email": "712368347106-compute@developer.gserviceaccount.com",
+      "email": service_account,
       "scopes": [
         "https://www.googleapis.com/auth/cloud-platform",
       ]
@@ -89,8 +92,12 @@ config = {
 }
 
 def create_instance(event, context):
-    compute = googleapiclient.discovery.build('compute', 'v1')
-    compute.instances().insert(
-        project=project_id,
-        zone=zone,
-        body=config).execute()
+    try:
+        compute = googleapiclient.discovery.build('compute', 'v1')
+        compute.instances().insert(
+            project=project_id,
+            zone=zone,
+            body=config).execute()
+        print(f'{instance_name} created in project {project_id}')
+    except Exception as e:
+        print(str(e))
