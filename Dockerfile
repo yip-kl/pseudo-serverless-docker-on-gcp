@@ -10,7 +10,8 @@ ENV PYTHONUNBUFFERED True
 COPY requirements.txt ./
 
 # Install production dependencies.
-RUN pip install --upgrade pip setuptools ipykernel
+RUN pip install --upgrade pip setuptools 
+RUN pip install ipykernel papermill gcsfs jupyter pytz google-cloud-logging
 RUN pip install -r requirements.txt
 RUN python -m ipykernel install --user --name=python3
 
