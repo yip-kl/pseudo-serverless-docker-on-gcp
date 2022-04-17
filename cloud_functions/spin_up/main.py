@@ -1,4 +1,5 @@
 import googleapiclient.discovery
+import requests
 
 metadata_server = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 metadata_flavor = {'Metadata-Flavor' : 'Google'}
