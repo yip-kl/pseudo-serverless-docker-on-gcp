@@ -1,15 +1,16 @@
 import googleapiclient.discovery
 import requests
 
+# Get current project id
 metadata_server = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 metadata_flavor = {'Metadata-Flavor' : 'Google'}
 
+# Define specification of the VM
 project_id = requests.get(metadata_server, headers = metadata_flavor).text
-instance_name = f'instance-{random.randint(0, 10000000)}'
+instance_name = f'instance-{random.randint(0, 10000000000)}'
 region = "us-central1"
 zone = "us-central1-a"
 image_path = "gcr.io/adroit-hall-301111/exec_notebook"
-
 config = {
   "canIpForward": False,
   "confidentialInstanceConfig": {
