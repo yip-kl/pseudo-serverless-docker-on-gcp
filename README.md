@@ -8,9 +8,8 @@ Build Docker image to execute Notebook on-demand
 
 <b>Deploy the container to Compute Engine</b>
 1. Submit container image to GCP, see <a href="https://cloud.google.com/build/docs/building/build-containers#use-dockerfile">here</a>
-2. Create instance and deploy container according to the instruction <a href="https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance">here</a>
+2. Deploy Cloud Function to spin up the VM (refer to the ```cloud_function/spin_up``` folder for codes)
+3. Deploy Cloud Function that tears down VM upon job finish, which is signaled by the log that is defined in ```notebook_execution.py``` (refer to the ```cloud_function/tear_down``` folder for codes)
 
-Note: Remember to perform these actions too
-- Remove the service account anthentication from the script, and set the right identity for the VM 
-- Make container's Restart Policy "On Failure" instead of "Always", otherwise the container could be up for less than 10 seconds for commands with short execution time and thus keep starting, see <a href="https://docs.docker.com/config/containers/start-containers-automatically/">here</a>
-- If you are going to deploy it as Cloud Function, include items listed in the requirements.txt
+To-do:
+- deploy.sh for the Cloud Functions, and automate logging sink creation
