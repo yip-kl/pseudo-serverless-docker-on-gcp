@@ -1,7 +1,7 @@
 # Run Docker in a pseudo-serverless manner with GCE
 Spin up GCE automatically for Docker run, and tear it down upon completion. This could be useful if you find Cloud Run too restrictive (e.g. run time / spec limitation, forced to create a HTTP endpoint, etc.)
 
-The example concerned is for running notebook with papermill, and storing the output in Google Cloud Storage
+The example concerned is for running Jupyter notebook with papermill, and storing the output in Google Cloud Storage
 
 <b>Test running the container locally</b>
 1. Add the requirements by executing ```pip3 freeze > requirements.txt``` when the virtual environment activated
