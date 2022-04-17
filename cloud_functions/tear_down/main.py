@@ -1,6 +1,7 @@
-import requests
 import sys
 import time
+import base64
+import json
 from google.cloud import compute_v1
 
 pubsub_string = base64.b64decode(event['data']).decode('utf-8')
