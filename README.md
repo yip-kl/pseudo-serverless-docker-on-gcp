@@ -4,7 +4,7 @@ Spin up GCE automatically for Docker run, and tear it down upon completion. This
 The example concerned is for running Jupyter notebook with papermill, and storing the output in Google Cloud Storage
 
 <b>Test running the container locally</b>
-1. Add the requirements by executing ```pip3 freeze > requirements.txt``` when the virtual environment activated
+1. Add the requirements by executing ```pip3 freeze > requirements.txt``` when the virtual environment is activated
 2. Build with ```docker build -t image_name .```
 3. Run with ```docker run -it image_name```
 
