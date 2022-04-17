@@ -2,14 +2,18 @@ import googleapiclient.discovery
 import requests
 import random
 import arrow
+import randomname
 
-# Get current project id
+# For specification definition
 metadata_server = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
 metadata_flavor = {'Metadata-Flavor' : 'Google'}
+local_time = arrow.utcnow().to('+08:00')
+today = local_time.format('YYYYMMDD')
+timestamp = round(local_time.timestamp())
 
 # Define specification of the VM
 project_id = requests.get(metadata_server, headers = metadata_flavor).text
-instance_name = f'instance-{arrow.utcnow().to('+08:00').format('YYYYMMDD')}-{random.randint(0, 1000000)}'
+instance_name = f'{randomname.get_name()}-{today}-{timestamp}'
 region = "us-central1"
 zone = "us-central1-a"
 image_path = "gcr.io/adroit-hall-301111/exec_notebook"
