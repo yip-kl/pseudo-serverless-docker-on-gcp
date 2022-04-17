@@ -1,5 +1,5 @@
-# Execute Notebook with Docker
-Build Docker image to execute Notebook on-demand
+# Run Docker in a pseudo-serverless manner
+Spin up / tear down GCE automatically for Docker run. This could be useful if you find Cloud Run too restrictive (e.g. run time / spec limitation, forced to create a HTTP endpoint, etc.)
 
 <b>Test running the container locally</b>
 1. Add the requirements by executing ```pip3 freeze > requirements.txt``` when the virtual environment activated
