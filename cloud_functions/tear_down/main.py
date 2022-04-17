@@ -3,15 +3,6 @@ import time
 import base64
 import json
 from google.cloud import compute_v1
-
-pubsub_string = base64.b64decode(event['data']).decode('utf-8')
-pubsub_json = json.loads(pubsub_string)
-gce_hostname_split = pubsub_json['gce_hostname'].split(".")
-
-if len(gce_hostname_split) == 5:
-    machine_name, zone, c, project_id, internal = gce_name_split
-elif len(gce_hostname_split) == 4:
-    machine_name, c, project_id, internal = gce_name_split
     
 def delete_instance(event, context):
     """
@@ -22,6 +13,15 @@ def delete_instance(event, context):
         zone: name of the zone you want to use. For example: “us-west3-b”
         machine_name: name of the machine you want to delete.
     """
+    
+    pubsub_string = base64.b64decode(event['data']).decode('utf-8')
+    pubsub_json = json.loads(pubsub_string)
+    gce_hostname_split = pubsub_json['jsonPayload']['gce_hostname'].split(".")
+
+    if len(gce_hostname_split) == 5:
+        machine_name, zone, c, project_id, internal = gce_hostname_split
+    elif len(gce_hostname_split) == 4:
+        machine_name, c, project_id, internal = gce_hostname_split
     
     instance_client = compute_v1.InstancesClient()
     operation_client = compute_v1.ZoneOperationsClient()
