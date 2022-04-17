@@ -10,11 +10,14 @@ ENV PYTHONUNBUFFERED True
 COPY requirements.txt ./
 
 # Install production dependencies.
-RUN pip install --upgrade pip setuptools
+RUN pip install --upgrade pip setuptools ipykernel
 RUN pip install -r requirements.txt
+RUN python -m ipykernel install --user --name=python3
 
-# Run Notebook
+# Copy code to working directory
 WORKDIR /usr/src/app
 COPY . .
-CMD ["notebook_execution.py"]
+
+# Execute the below upon run
 ENTRYPOINT ["python3"]
+CMD ["notebook_execution.py"]
