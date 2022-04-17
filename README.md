@@ -1,4 +1,4 @@
-# Run Docker in a pseudo-serverless manner with GCE
+# Pseudo-serverless Docker run on GCP
 Spin up GCE automatically for Docker run, and tear it down upon completion. This could be useful if you find Cloud Run too restrictive (e.g. run time / spec limitation, forced to create a HTTP endpoint, etc.), or if you find running Docker via Vertex AI custom training job too expensive
 
 The example concerned is for running Jupyter notebook with papermill, and storing the output in Google Cloud Storage
