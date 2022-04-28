@@ -11,7 +11,7 @@ COPY requirements.txt ./
 
 # Install production dependencies.
 RUN pip install --upgrade pip setuptools 
-RUN pip install jupyter papermill gcsfs arrow google-cloud-logging
+RUN pip install ipykernel papermill gcsfs arrow google-cloud-logging
 RUN pip install -r requirements.txt
 RUN python -m ipykernel install --user --name=python3
 
