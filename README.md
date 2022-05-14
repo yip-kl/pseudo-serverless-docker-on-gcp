@@ -13,5 +13,8 @@ The example concerned is for running Jupyter notebook with papermill, and storin
 2. Deploy Cloud Function to spin up the VM (refer to the ```cloud_function/spin_up``` folder for codes)
 3. Deploy Cloud Function that tears down VM upon job finish, which is signaled by the log that is defined in ```notebook_execution.py``` (refer to the ```cloud_function/tear_down``` folder for codes)
 
+<b>Troubleshooting</b>
+- ```Kernel died while waiting for execute reply```: Try spin up a more powerful VM
+
 To-do:
 - deploy.sh for the Cloud Functions, and automate logging sink creation

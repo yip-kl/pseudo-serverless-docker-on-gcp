@@ -1,8 +1,8 @@
 import googleapiclient.discovery
 import requests
-import random
 import arrow
 import randomname
+import time
 
 # For specification definition
 metadata_server = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
@@ -96,13 +96,29 @@ config = {
   "zone": f"projects/{project_id}/zones/{zone}"
 }
 
-def create_instance(event, context):
-    try:
-        compute = googleapiclient.discovery.build('compute', 'v1')
-        compute.instances().insert(
-            project=project_id,
+compute = googleapiclient.discovery.build('compute', 'v1')
+
+def wait_for_operation(project, zone, operation, poll_interval=10):
+    print('Waiting for operation to finish...')
+    while True:
+        result = compute.zoneOperations().get(
+            project=project,
             zone=zone,
-            body=config).execute()
-        print(f'{instance_name} created in project {project_id}')
-    except Exception as e:
-        print(str(e))
+            operation=operation).execute()
+
+        if result['status'] == 'DONE':
+            if 'error' in result:
+              raise Exception(result['error'])
+            else:
+              print('done')
+            return result
+
+        time.sleep(poll_interval)
+
+def create_instance(event, context):
+    spin_up = compute.instances().insert(
+        project=project_id,
+        zone=zone,
+        body=config
+    ).execute()
+    wait_for_operation(project_id, zone, spin_up['name'])
